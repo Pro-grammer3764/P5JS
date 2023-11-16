@@ -59,4 +59,8 @@ class NeuralNetwork{
 
         pop();
     }
+
+    evaluateNextLayer(layer0, layer1){
+        
+    }
 }

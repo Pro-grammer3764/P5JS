@@ -5,7 +5,6 @@
 //convention: topmost = 0, bottommost = n
 
 function setup() {
-  //test commit
   createCanvas(400, 400);
   Neuron.prototype.Sigmoid = Sigmoid();
 

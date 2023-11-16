@@ -7,6 +7,7 @@ class NeuralLayer{
     }
 
     innitializeLayer(inputLayer){
+        //takes in raw list, not NeuralLayer object
         for(let i = 0; i < inputLayer.length; i++){
             this.neurons[i].setValue(inputLayer[i]);
         }
