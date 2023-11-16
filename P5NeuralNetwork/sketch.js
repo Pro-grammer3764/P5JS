@@ -1,30 +1,26 @@
-//1. Node
-//2. Layer
-//3. Neural Network
-
-//convention: topmost = 0, bottommost = n
-
 function setup() {
   createCanvas(400, 400);
-  Neuron.prototype.Sigmoid = Sigmoid();
+  textAlign(CENTER, CENTER);
 
-  let size = [];
-  for(let i = 0; i < round(random(3, 5)); i++){
-    size[i] = round(random(2, 6));
-  }
-  neuralNetwork = new NeuralNetwork(size);
-  let n = neuralNetwork.layers[0].neurons.length;
-  put = [];
-  for(let i = 0; i < n; i++){
-    put[i] = random();
-  }
-  neuralNetwork.input(put);
-  b = new Bound(0, 0, width, height);
+  Neuron.prototype.Sigmoid = Sigmoid();
+  NeuralLayer.prototype.Sigmoid = Sigmoid();
+  NeuralNetwork.prototype.Sigmoid = Sigmoid();
+  let bound = new Bound(0, 0, width, height);
+  
+  let size = [2, 3, 4, 3, 2];
+  neuralNetwork = new NeuralNetwork(bound, size);
+  neuralNetwork.insertInputs([0.5, 1]);
+  neuralNetwork.propagateNetwork();
 }
+
 
 function draw() {
   background(0);
-  neuralNetwork.showNerualNetwork(b);
+  let x = map(mouseX, 0, width , 0, 1);
+  let y = map(mouseY, 0, height, 0, 1);
+  neuralNetwork.insertInputs([x, y]);
+  neuralNetwork.propagateNetwork();
+  neuralNetwork.showNerualNetwork();
 }
 
 function Sigmoid(x){

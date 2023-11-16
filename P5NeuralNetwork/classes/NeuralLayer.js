@@ -1,26 +1,8 @@
 class NeuralLayer{
-    constructor(length){
+    constructor(length0, length1){
         this.neurons = [];
-        for (let i = 0; i < length; i++) {  
-            this.neurons[i] = new Neuron();
+        for (let i = 0; i < length0; i++) {  
+            this.neurons[i] = new Neuron(length1);
         }
     }
-
-    innitializeLayer(inputLayer){
-        //takes in raw list, not NeuralLayer object
-        for(let i = 0; i < inputLayer.length; i++){
-            this.neurons[i].setValue(inputLayer[i]);
-        }
-    }
-
-    innitializeNeuronBias(nextLayer){
-        for(let i = 0; i < this.neurons.length; i++){
-            //goes through all neurons in this layer
-            for(let j = 0; j < nextLayer.length; j++){
-                this.neurons.weights[j] = 0;
-            }
-        }
-    }
-
-
 }
