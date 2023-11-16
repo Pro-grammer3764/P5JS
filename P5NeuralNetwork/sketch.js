@@ -16,10 +16,12 @@ function setup() {
 
 function draw() {
   background(0);
-  let x = map(mouseX, 0, width , 0, 1);
-  let y = map(mouseY, 0, height, 0, 1);
-  neuralNetwork.insertInputs([x, y]);
-  neuralNetwork.propagateNetwork();
+  if (pmouseX !== mouseX || pmouseY !== mouseY) {
+    let x = map(mouseX, 0, width , 0, 1);
+    let y = map(mouseY, 0, height, 0, 1);
+    neuralNetwork.insertInputs([x, y]);
+    neuralNetwork.propagateNetwork();
+  }
   neuralNetwork.showNerualNetwork();
 }
 
