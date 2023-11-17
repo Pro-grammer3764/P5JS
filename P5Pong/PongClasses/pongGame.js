@@ -10,6 +10,7 @@ class pongGame{
     this.pw = pWidth;
     this.leftScore = 0;
     this.rightScore = 0;
+    this.AI = new NeuralNetwork(this.bound, [2, 3, 2])
   }
 
   show(){
@@ -43,6 +44,12 @@ class pongGame{
     this.ball.update();
     this.ballCollision();
     this.autoPlay();
+    this.AI.propagateNetwork();
+    this.AI.showNerualNetwork();
+  }
+
+  returnCost(){
+
   }
 
   ballCollision(){

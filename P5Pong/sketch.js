@@ -1,7 +1,13 @@
 function setup() {
   angleMode(DEGREES);
+  textAlign(CENTER, CENTER);
   createCanvas(400, 400);
   
+  Neuron.prototype.Sigmoid = Sigmoid();
+  NeuralLayer.prototype.Sigmoid = Sigmoid();
+  NeuralNetwork.prototype.Sigmoid = Sigmoid();
+  pongGame.prototype.Sigmoid = Sigmoid();
+
   size = createVector(1, 1); //first int = columns, second int = rows
   unit = createVector(width/size.x, height/size.y);
   paddleHeight = unit.y / 5;
@@ -20,7 +26,7 @@ function setup() {
       //games[y][x] = new pongGame(m, paddleWidth, paddleHeight, paddleOffset, ballSize, alpha);
       //games[y][x].ball.speed = ballSpeed;
 
-      m = new bound(0, 0, width, height);
+      let m = new bound(0, 0, width, height);
       games[y][x] = new pongGame(m, 10, 80, 5, 10, alpha);
     }
   }
@@ -39,4 +45,8 @@ function draw() {
 function mouseClicked(){
   let GS = new gameState(games[0][0]);
   print(GS);
+}
+
+function Sigmoid(x){
+  return (1) / (1 + (pow(Math.E, (x * -1))));
 }
