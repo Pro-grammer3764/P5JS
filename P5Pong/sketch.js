@@ -1,6 +1,3 @@
-//TO-DO
-//build AI [ easiest part of the project :) ]
-
 function setup() {
   angleMode(DEGREES);
   createCanvas(400, 400);
