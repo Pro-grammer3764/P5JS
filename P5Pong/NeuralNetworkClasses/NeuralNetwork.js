@@ -2,6 +2,7 @@ class NeuralNetwork{
     constructor(bound, layerCounts){
         //innitializes layers to desired length using array layerCounts
         this.bound = bound;
+        this.debug = false;
         this.layers = [];
         for(let i = 0; i < layerCounts.length - 1; i++){
             this.layers[i] = new NeuralLayer(layerCounts[i], layerCounts[i + 1]);
@@ -61,12 +62,16 @@ class NeuralNetwork{
                 
                 push();
                 translate(this.layers[x].neurons[y].x, this.layers[x].neurons[y].y)
-                noStroke(); fill(256); textSize(5);
-                text("Value: " + nf(v, 1, 4) +"\nBias: " + nf(b, 1, 4) + "\nWeigths: " + w, 0, 20);
+                
+                if(this.debug){
+                    noStroke(); fill(256); textSize(5);
+                    text("Value: " + nf(v, 1, 4) +"\nBias: " + nf(b, 1, 4) + "\nWeigths: " + w, 0, 20);
+                }
+
                 fill(v * 256);
                 //stroke(b * 256, 0, 0);
                 stroke(256);
-                circle(0, 0, 10);
+                circle(0, 0, this.bound.w / 20);
                 pop();
 
             }

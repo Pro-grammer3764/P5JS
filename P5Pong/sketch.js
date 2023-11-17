@@ -8,7 +8,7 @@ function setup() {
   NeuralNetwork.prototype.Sigmoid = Sigmoid();
   pongGame.prototype.Sigmoid = Sigmoid();
 
-  size = createVector(1, 1); //first int = columns, second int = rows
+  size = createVector(4, 4); //first int = columns, second int = rows
   unit = createVector(width/size.x, height/size.y);
   paddleHeight = unit.y / 5;
   paddleWidth = unit.x / 50;
@@ -22,12 +22,12 @@ function setup() {
   for (let y = 0; y < size.x; y++) {
     games[y] = [];
     for (let x = 0; x < size.x; x++) {
-      //m = new bound(x*unit.x, y*unit.y, unit.x, unit.y);
-      //games[y][x] = new pongGame(m, paddleWidth, paddleHeight, paddleOffset, ballSize, alpha);
-      //games[y][x].ball.speed = ballSpeed;
+      m = new bound(x*unit.x, y*unit.y, unit.x, unit.y);
+      games[y][x] = new pongGame(m, paddleWidth, paddleHeight, paddleOffset, ballSize, 256);
+      games[y][x].ball.speed = ballSpeed;
 
-      let m = new bound(0, 0, width, height);
-      games[y][x] = new pongGame(m, 10, 80, 5, 10, alpha);
+      //let m = new bound(0, 0, width, height);
+      //games[y][x] = new pongGame(m, 10, 80, 5, 10, alpha);
     }
   }
 }

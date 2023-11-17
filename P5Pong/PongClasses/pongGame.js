@@ -5,7 +5,7 @@ class pongGame{
     this.left  = new pongPaddle(bound, pWidth, pHeight, padding, 0, this.a); //left paddle
     this.right = new pongPaddle(bound, pWidth, pHeight, padding, 1, this.a); //right paddle
     this.ball = new ball(bound, ballSize, this.a);
-    this.ball.debug = true;
+    this.ball.debug = false;
     this.ph = pHeight; //paddle height
     this.pw = pWidth; //paddle width
     this.leftScore = 0;
