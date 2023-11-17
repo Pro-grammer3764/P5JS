@@ -1,16 +1,18 @@
 class pongGame{
   constructor(bound, pWidth, pHeight, padding, ballSize, a){
     this.bound = bound;
-    this.a = min(a, 256);
-    this.left  = new pongPaddle(bound, pWidth, pHeight, padding, 0, this.a); //left
-    this.right = new pongPaddle(bound, pWidth, pHeight, padding, 1, this.a); //right
+    this.a = min(a, 256); //alpha (transparency)
+    this.left  = new pongPaddle(bound, pWidth, pHeight, padding, 0, this.a); //left paddle
+    this.right = new pongPaddle(bound, pWidth, pHeight, padding, 1, this.a); //right paddle
     this.ball = new ball(bound, ballSize, this.a);
-    this.ball.showText = true;
-    this.ph = pHeight;
-    this.pw = pWidth;
+    this.ball.debug = true;
+    this.ph = pHeight; //paddle height
+    this.pw = pWidth; //paddle width
     this.leftScore = 0;
     this.rightScore = 0;
-    this.AI = new NeuralNetwork(this.bound, [2, 3, 2])
+
+    this.state = new gameState(this);
+    this.AI = new NeuralNetwork(this.bound, [6, 4, 3, 2]);
   }
 
   show(){
@@ -35,8 +37,8 @@ class pongGame{
     fill(256, this.a); noStroke();
     textSize(this.pw * 2);
     textAlign(CENTER, CENTER);
-    text(this.leftScore,  this.bound.x + (this.bound.w * 0.25), this.bound.y + (this.bound.h / 10));
-    text(this.rightScore, this.bound.x + (this.bound.w * 0.75), this.bound.y + (this.bound.h / 10));
+    text(this.leftScore,  this.bound.x + (this.bound.w * 0.25), this.bound.y + (this.bound.h / 10)); //left score text
+    text(this.rightScore, this.bound.x + (this.bound.w * 0.75), this.bound.y + (this.bound.h / 10)); //right score text
     pop();
   }
 
@@ -44,7 +46,13 @@ class pongGame{
     this.ball.update();
     this.ballCollision();
     this.autoPlay();
+
+    this.state.update(this);
+    this.AI.insertInputs(this.state.state);
     this.AI.propagateNetwork();
+    let action = this.AI.returnOutputs();
+    let average = action[0] - action[1];
+    this.left.vel = average;
     this.AI.showNerualNetwork();
   }
 
@@ -68,7 +76,7 @@ class pongGame{
   autoPlay(){
     //left
     //this.left.y = this.ball.y - (random(-0.01, 0.01) * this.ph/2); //easy bot
-    this.left.y = this.ball.y - this.ph/2; //perfect bot
+    //this.left.y = this.ball.y - this.ph/2; //perfect bot
     //this.left.y = this.ball.y - 10; //perfect offset
     //this.left.y = mouseY - this.ph/2; //mouse control
     this.left.update();

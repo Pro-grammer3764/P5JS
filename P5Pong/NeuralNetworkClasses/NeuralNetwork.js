@@ -104,4 +104,15 @@ class NeuralNetwork{
             }
         }
     }
+
+    returnOutputs(){
+        let lastLen = this.layers[this.layers.length - 1].neurons.length;
+        let array = [];
+
+        for(let i = 0; i < lastLen; i++){
+            array.push(this.layers[this.layers.length - 1].neurons[i].value);
+        }
+        
+        return array;
+    }
 }

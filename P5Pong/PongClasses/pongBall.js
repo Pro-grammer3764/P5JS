@@ -18,6 +18,7 @@ class ball{
         this.vel.rotate(random(-60,60));
         if(random() > 0.5) {this.vel.reflect(createVector(1,0))}
         this.vel.setMag(this.speed);
+        this.vel.x = abs(this.vel.x);
     }
 
     show(){
@@ -36,8 +37,8 @@ class ball{
                 text(s, 0, -this.radius - 10)
 
                 stroke(this.col); strokeWeight(1);
-                line(0, 0, 0, -this.radius*2); //upwards line
-                line(0, 0, 0, this.radius*2); //downwards line
+                //line(0, 0, 0, -this.radius*2); //upwards line
+                //line(0, 0, 0, this.radius*2); //downwards line
                 rotate(this.vel.heading() - 90);
                 line(0, 0, 0, this.radius*2); //ball direction
             }

@@ -43,8 +43,8 @@ function draw() {
 }
 
 function mouseClicked(){
-  let GS = new gameState(games[0][0]);
-  print(GS);
+  print(new gameState(games[0][0]).state);
+  games[0][0].AI.returnOutputs();
 }
 
 function Sigmoid(x){
