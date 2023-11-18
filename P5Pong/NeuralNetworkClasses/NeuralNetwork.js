@@ -8,6 +8,7 @@ class NeuralNetwork{
             this.layers[i] = new NeuralLayer(layerCounts[i], layerCounts[i + 1]);
         }
         this.layers[layerCounts.length - 1] = new NeuralLayer(layerCounts[layerCounts.length - 1]);
+        this.sensitivity = 0.03;
     }
 
     showNerualNetwork(){
@@ -119,5 +120,16 @@ class NeuralNetwork{
         }
         
         return array;
+    }
+
+    updatePaddle(input, paddle){
+        paddle.vel = 0; //defualt no motion
+
+        if((input[0] + this.sensitivity) - input[1] < 0){
+            paddle.vel = 1;
+        }else if((input[1] + this.sensitivity) - input[0] < 0){
+            paddle.vel = -1;
+        }
+
     }
 }

@@ -10,7 +10,7 @@ function setup() {
   NeuralNetwork.prototype.Sigmoid = Sigmoid();
   pongGame.prototype.Sigmoid = Sigmoid();
 
-  size = createVector(4, 4); //first int = columns, second int = rows
+  size = createVector(1, 1); //first int = columns, second int = rows
   unit = createVector(width/size.x, height/size.y);
   paddleHeight = unit.y / 5;
   paddleWidth = unit.x / 50;
@@ -45,8 +45,10 @@ function draw() {
 }
 
 function mouseClicked(){
+  print(games)
   print(new gameState(games[0][0]).state);
-  games[0][0].AI.returnOutputs();
+  print(games[0][0].AI.returnOutputs());
+  print(new NeuralDNA(games[0][0].AI, 0));
 }
 
 function Sigmoid(x){

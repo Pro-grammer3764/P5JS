@@ -98,10 +98,14 @@ class ball{
         if(this.x < this.bound.x + this.radius/2){
             //left wall
             this.reset();
+            left.reset();
+            right.reset();
             return 'right score';
         }else if(this.x > this.bound.x + this.bound.w - this.radius/2){
             //right wall
             this.reset();
+            left.reset();
+            right.reset();
             return 'left score';
         }
 

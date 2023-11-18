@@ -5,7 +5,7 @@ class gameState{
         this.ballVelX = pongGame.ball.normalVel.x;
         this.ballVelY = pongGame.ball.normalVel.y;
         this.leftY = pongGame.left.normalPos.y;
-        this.rightY = pongGame.right.normalPos.y;
+        //this.rightY = pongGame.right.normalPos.y;
 
         this.state = [];
         this.updateState();
@@ -17,7 +17,7 @@ class gameState{
         this.ballVelX = pongGame.ball.normalVel.x;
         this.ballVelY = pongGame.ball.normalVel.y;
         this.leftY = pongGame.left.normalPos.y;
-        this.rightY = pongGame.right.normalPos.y;
+        //this.rightY = pongGame.right.normalPos.y;
 
         this.updateState();
     }
@@ -28,6 +28,6 @@ class gameState{
         this.state[2] = this.ballVelX
         this.state[3] = this.ballVelY
         this.state[4] = this.leftY
-        this.state[5] = this.rightY
+        //this.state[5] = this.rightY
     }
 }

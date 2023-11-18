@@ -20,9 +20,13 @@ class pongPaddle{
         this.showText = false;
     }
 
+    reset(){
+        this.y = (this.bound.y + this.bound.h) / 2;
+    }
+
     update(){
         this.y += this.vel;
-        this.vel = lerp(this.vel, 0, 1/3);
+        this.vel = lerp(this.vel, 0, 1/3); //friction
         this.col = color(256 * this.accuracy, 256 * (1 - this.accuracy), 0, this.a);
 
         if(this.y < this.bound.y){

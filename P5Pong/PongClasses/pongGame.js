@@ -12,7 +12,7 @@ class pongGame{
     this.rightScore = 0;
 
     this.state = new gameState(this);
-    this.AI = new NeuralNetwork(this.bound, [6, 4, 3, 2]);
+    this.AI = new NeuralNetwork(this.bound, [5, 4, 3, 2]);
   }
 
   show(){
@@ -20,7 +20,7 @@ class pongGame{
     this.bound.show(this.a);
     this.ball.show();
     this.right.show();
-
+    
     //UI
     push();
     strokeWeight(1);
@@ -29,31 +29,32 @@ class pongGame{
     for (let i = 0; i < num; i++) {
       if(i % 2 == 0){stroke(256, this.a)}else{noStroke()}
       line(this.bound.x + this.bound.w/2, 
-            this.bound.y + (this.bound.h / num) * i, 
-            this.bound.x + this.bound.w/2, 
-            this.bound.y + (this.bound.h / num) * (i+1));
+      this.bound.y + (this.bound.h / num) * i, 
+      this.bound.x + this.bound.w/2, 
+      this.bound.y + (this.bound.h / num) * (i+1));
     }
-
+    
     fill(256, this.a); noStroke();
     textSize(this.pw * 2);
     textAlign(CENTER, CENTER);
     text(this.leftScore,  this.bound.x + (this.bound.w * 0.25), this.bound.y + (this.bound.h / 10)); //left score text
     text(this.rightScore, this.bound.x + (this.bound.w * 0.75), this.bound.y + (this.bound.h / 10)); //right score text
     pop();
+    
+    this.AI.showNerualNetwork();
   }
 
   update(){
     this.ball.update();
     this.ballCollision();
-    this.autoPlay();
+    
+    this.state.update(this); //update current game state
+    this.AI.insertInputs(this.state.state); //insert game state into network
+    this.AI.propagateNetwork(); //forward propagate network
 
-    this.state.update(this);
-    this.AI.insertInputs(this.state.state);
-    this.AI.propagateNetwork();
-    let action = this.AI.returnOutputs();
-    let average = action[0] - action[1];
-    this.left.vel = average;
-    this.AI.showNerualNetwork();
+    this.AI.updatePaddle(this.AI.returnOutputs(), this.left); //update paddle
+
+    this.autoPlay();
   }
 
   returnCost(){
