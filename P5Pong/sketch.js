@@ -4,7 +4,7 @@ function setup() {
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
   createCanvas(400, 400);
-  
+
   Neuron.prototype.Sigmoid = Sigmoid();
   NeuralLayer.prototype.Sigmoid = Sigmoid();
   NeuralNetwork.prototype.Sigmoid = Sigmoid();
