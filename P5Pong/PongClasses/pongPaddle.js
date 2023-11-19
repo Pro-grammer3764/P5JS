@@ -16,7 +16,7 @@ class pongPaddle{
         this.y -= this.h/2;
         this.vel = 0;
         this.normalPos = createVector(0, 0); //x pos is constant, defualt 0
-        this.accuracy = 1;
+        this.accuracy = 0;
         this.showText = false;
     }
 
@@ -27,7 +27,7 @@ class pongPaddle{
     update(){
         this.y += this.vel;
         this.vel = lerp(this.vel, 0, 1/3); //friction
-        this.col = color(256 * this.accuracy, 256 * (1 - this.accuracy), 0, this.a);
+        //this.col = color(256 * this.accuracy, 256 * (1 - this.accuracy), 0, this.a);
 
         if(this.y < this.bound.y){
             this.y = this.bound.y; //nudge

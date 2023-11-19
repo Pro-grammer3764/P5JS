@@ -1,6 +1,6 @@
 class NeuralDNA{
-    constructor(neuralNetwork, score){
-        this.score = score;
+    constructor(neuralNetwork, fitness){
+        this.fitness = fitness; //calculated with accuracy of paddle and time alive
         this.weightDNA = []
         this.biasDNA = [];
         for(let x = 0; x < neuralNetwork.layers.length - 1; x++){

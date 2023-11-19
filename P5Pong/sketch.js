@@ -1,5 +1,6 @@
 function setup() {
- textAlign(CENTER, CENTER);
+  textAlign(CENTER, CENTER);
+  angleMode(DEGREES);
   createCanvas(400, 400);
 
   Neuron.prototype.Sigmoid = Sigmoid();
@@ -23,7 +24,6 @@ function setup() {
     for (let x = 0; x < size.x; x++) {
       m = new bound(x*unit.x, y*unit.y, unit.x, unit.y);
       games[y][x] = new pongGame(m, paddleWidth, paddleHeight, paddleOffset, ballSize, 256);
-      games[y][x].ball.speed = ballSpeed;
 
       //let m = new bound(0, 0, width, height);
       //games[y][x] = new pongGame(m, 10, 80, 5, 10, alpha);

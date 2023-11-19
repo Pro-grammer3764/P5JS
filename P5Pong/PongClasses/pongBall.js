@@ -5,7 +5,8 @@ class ball{
         this.a = min(a * 4, 256);
         this.col = color(256, 256, 256, this.a);
         this.speed = ballSize / 2;
-        this.debug = false;
+        this.speed = 1;
+        this.debug = true;
         this.normalPos = createVector(0, 0);
         this.normalVel = createVector(0, 0);
         this.reset();
@@ -39,6 +40,7 @@ class ball{
                 stroke(this.col); strokeWeight(1);
                 //line(0, 0, 0, -this.radius*2); //upwards line
                 //line(0, 0, 0, this.radius*2); //downwards line
+                line(this.bound.x - this.x, 0, this.bound.x + this.bound.w - this.x, 0);
                 rotate(this.vel.heading() - 90);
                 line(0, 0, 0, this.radius*2); //ball direction
             }
@@ -81,7 +83,6 @@ class ball{
             if(this.x < left.x + left.w + this.radius/2){
                 this.vel.reflect(createVector(1, random(0, 0.25)));
                 this.x = left.x + left.w + this.radius/2; //nudge
-                left.accuracy = abs(map(this.y, left.y, left.y + left.h, 0, 2) - 1);
                 return 'continue';
             }
         }
@@ -91,7 +92,6 @@ class ball{
             if(this.x > right.x - this.radius/2){
                 this.vel.reflect(createVector(1, random(0, 0.25)));
                 this.x = right.x - this.radius/2; //nudge
-                right.accuracy = abs(map(this.y, right.y, right.y + right.h, 0, 2) - 1);
                 return 'continue';
             }
         }
@@ -100,17 +100,28 @@ class ball{
         if(this.x < this.bound.x + this.radius/2){
             //left wall
             this.reset();
-            left.reset();
-            right.reset();
             return 'right score';
         }else if(this.x > this.bound.x + this.bound.w - this.radius/2){
             //right wall
             this.reset();
-            left.reset();
-            right.reset();
             return 'left score';
         }
+        
+        left.accuracy = pow(1 - min(abs(((left.y + (left.h/2)) - this.y) / (left.h/2)), 1), 2);
+        left.accuracy = accuracyWeight(this.bound, left.accuracy, this.x);
 
+        right.accuracy = pow(1 - min(abs(((right.y + (right.h/2)) - this.y) / (right.h/2)), 1), 2);
+        right.accuracy = accuracyWeight(this.bound, right.accuracy, this.x);
+        
         return 'continue';
     }
+}
+
+let r1 = 3;
+let r2 = 1.5;
+function accuracyWeight(bound, accuracy, ballX){
+    let m = ((r1 * r2) / ((bound.w * r2) - (bound.w * r1)));
+    let w = (m * (ballX - (bound.x + (bound.w/r1)))) + 1
+
+    return (accuracy * max(min(w, 1), 0));
 }

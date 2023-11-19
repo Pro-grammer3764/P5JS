@@ -5,7 +5,6 @@ class pongGame{
     this.left  = new pongPaddle(bound, pWidth, pHeight, padding, 0, this.a); //left paddle
     this.right = new pongPaddle(bound, pWidth, pHeight, padding, 1, this.a); //right paddle
     this.ball = new ball(bound, ballSize, this.a);
-    this.ball.debug = false;
     this.ph = pHeight; //paddle height
     this.pw = pWidth; //paddle width
     this.leftScore = 0;
@@ -13,6 +12,9 @@ class pongGame{
 
     this.state = new gameState(this);
     this.AI = new NeuralNetwork(this.bound, [5, 4, 3, 2]);
+    this.timer = 0;
+    this.totalAccuracy = 0;
+    this.fitness = 0;
   }
 
   show(){
@@ -45,14 +47,18 @@ class pongGame{
   }
 
   update(){
+    this.timer++;
+
     this.ball.update();
     this.ballCollision();
     
     this.state.update(this); //update current game state
     this.AI.insertInputs(this.state.state); //insert game state into network
     this.AI.propagateNetwork(); //forward propagate network
-
     this.AI.updatePaddle(this.AI.returnOutputs(), this.left); //update paddle
+    
+    this.totalAccuracy += this.left.accuracy;
+    this.fitness = this.totalAccuracy / this.timer;
 
     this.autoPlay();
   }
@@ -64,14 +70,23 @@ class pongGame{
   ballCollision(){
     switch (this.ball.checkCollisions(this.left, this.right)) {
       case 'right score':
+        this.reset()
         this.rightScore++;
         break;
       case 'left score':
+        this.reset()
         this.leftScore++;
         break;
       default:
         break;
     }
+  }
+
+  reset(){
+    this.left.reset();
+    this.right.reset();
+    this.totalAccuracy = 0;
+    this.timer = 0;
   }
 
   autoPlay(){
