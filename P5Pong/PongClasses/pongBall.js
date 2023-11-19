@@ -62,6 +62,7 @@ class ball{
             if(abs(this.vel.angleBetween(createVector(0,-1))) < 15){
                 //if the ball is bouncing  at an angle less than 15° increase angle
                 this.vel.x *= random(2, 3);
+                this.vel.setMag(this.speed);
             }
             this.vel.reflect(createVector(0,1));
             this.y = this.bound.y + this.radius/2; //nudge
@@ -69,6 +70,7 @@ class ball{
             if(abs(this.vel.angleBetween(createVector(0,1))) < 15){
                 //if the ball is bouncing  at an angle less than 15° increase angle
                 this.vel.x *= random(2, 3);
+                this.vel.setMag(this.speed);
             }
             this.vel.reflect(createVector(0,1));
             this.y = this.bound.y + this.bound.h - this.radius/2; //nudge

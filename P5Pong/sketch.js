@@ -1,8 +1,5 @@
 function setup() {
-  //test commit 1
-
-  angleMode(DEGREES);
-  textAlign(CENTER, CENTER);
+ textAlign(CENTER, CENTER);
   createCanvas(400, 400);
 
   Neuron.prototype.Sigmoid = Sigmoid();
