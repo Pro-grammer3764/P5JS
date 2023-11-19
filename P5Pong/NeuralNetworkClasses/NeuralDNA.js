@@ -1,5 +1,5 @@
 class NeuralDNA{
-    constructor(neuralNetwork, fitness){
+    constructor(fitness, neuralNetwork){
         this.fitness = fitness; //calculated with accuracy of paddle and time alive
         this.weightDNA = []
         this.biasDNA = [];

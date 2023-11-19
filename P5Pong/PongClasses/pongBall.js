@@ -5,7 +5,6 @@ class ball{
         this.a = min(a * 4, 256);
         this.col = color(256, 256, 256, this.a);
         this.speed = ballSize / 2;
-        this.speed = 1;
         this.debug = true;
         this.normalPos = createVector(0, 0);
         this.normalVel = createVector(0, 0);
