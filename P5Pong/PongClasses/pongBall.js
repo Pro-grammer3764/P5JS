@@ -108,11 +108,11 @@ class ball{
         }
         
         left.accuracy = pow(1 - min(abs(((left.y + (left.h/2)) - this.y) / (left.h/2)), 1), 2);
-        left.accuracy = accuracyWeight(this.bound, left.accuracy, this.x);
+        //left.accuracy = accuracyWeight(this.bound, left.accuracy, this.x);
 
         right.accuracy = pow(1 - min(abs(((right.y + (right.h/2)) - this.y) / (right.h/2)), 1), 2);
-        right.accuracy = accuracyWeight(this.bound, right.accuracy, this.x);
-        
+        //right.accuracy = accuracyWeight(this.bound, right.accuracy, this.x);
+
         return 'continue';
     }
 }

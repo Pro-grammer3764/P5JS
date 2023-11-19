@@ -63,8 +63,8 @@ class pongGame{
     this.autoPlay();
   }
 
-  returnCost(){
-
+  expectedOutput(){
+    //return wether the AI should have an output of 1,0 or 0,1 or 0.5, 0.5
   }
 
   ballCollision(){
