@@ -8,7 +8,7 @@ function setup() {
   NeuralNetwork.prototype.Sigmoid = Sigmoid();
   pongGame.prototype.Sigmoid = Sigmoid();
 
-  gamesManager = new GamesManager(9, new bound(0, 0, width, height));
+  gamesManager = new GamesManager(64, new bound(0, 0, width, height));
   gamesManager.innitializeGames();
 }
 
@@ -19,6 +19,8 @@ function draw() {
 }
 
 function mouseClicked(){
+  gamesManager.sortGames();
+  print(gamesManager.games[0].DNA)
 }
 
 function Sigmoid(x){

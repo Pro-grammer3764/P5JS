@@ -33,32 +33,49 @@ class GamesManager{
 
     updateGames(){
         this.globalTimer++;
-        if(this.globalTimer < this.resetTime){
+        if(!this.checkGames()){
             for(let i = 0; i < this.games.length; i++){
                 this.games[i].update();
             }
+
         }else{
             for(let i = 0; i < this.games.length; i++){
                 this.games[i].setFitness(this.globalTimer); //set fitness of each game
             }
-
+            
             this.sortGames(); //re-order the games based off of fitness
+            print("max: " + this.games[0].totalAccuracy + ", min: " + this.games[this.games.length - 1].totalAccuracy);
 
             let newParent = this.games[0].DNA.combine(this.games[1].DNA); //combine top two DNA's
-
+            
             for(let i = 0; i < this.games.length; i++){
-                this.games[i].AI.insertDNA(newParent.mutateDNA()); //place new DNA into all the neural networks and mutate all the DNA
+                //replace the bottom half with the new DNA
+                if(i > this.games.length / 2){
+                    this.games[i].AI.insertDNA(newParent.mutateDNA());
+                }
+                
+                this.games[i].AI.placement = map(i, 0, this.games.length, 1, 0);
                 this.games[i].totalAccuracy = 0;
+                this.games[i].fitness = 0;
                 this.games[i].rightScore = 0;
                 this.games[i].leftScore = 0;
+                this.games[i].completedCycle = false;
                 this.games[i].reset();
             }
-
+            
             this.globalTimer = 0;
         }
     }
 
     sortGames(){
-        this.games.sort((a,b) => b.fitness - a.fitness);
+        this.games.sort((a,b) => b.totalAccuracy - a.totalAccuracy);
+    }
+
+    checkGames(){
+        for(let i = 0; i < this.games.length; i++){
+            if(this.games[i].completedCycle == false){return false;}
+        }
+
+        return true;
     }
 }

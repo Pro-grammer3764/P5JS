@@ -57,7 +57,7 @@ class ball{
         this.normalVel.normalize();
     }
     
-    checkCollisions(left, right){
+    checkCollisions(left, right, game){
         //top and bottom wall collision
         if(this.y < this.bound.y + this.radius/2){
             if(abs(this.vel.angleBetween(createVector(0,-1))) < 15){
@@ -82,6 +82,7 @@ class ball{
             if(this.x < left.x + left.w + this.radius/2){
                 this.vel.reflect(createVector(1, random(0, 0.25)));
                 this.x = left.x + left.w + this.radius/2; //nudge
+                game.totalAccuracy += 50;
                 return 'continue';
             }
         }

@@ -8,7 +8,8 @@ class NeuralNetwork{
             this.layers[i] = new NeuralLayer(layerCounts[i], layerCounts[i + 1]);
         }
         this.layers[layerCounts.length - 1] = new NeuralLayer(layerCounts[layerCounts.length - 1]);
-        this.sensitivity = 0.03;
+        this.sensitivity = 0.1;
+        this.placement = 0;
     }
 
     showNerualNetwork(){
@@ -41,7 +42,8 @@ class NeuralNetwork{
                     //loop amount of neurons in next layer
                     let p2x = this.layers[x + 1].neurons[n].x;
                     let p2y = this.layers[x + 1].neurons[n].y;
-                    stroke(0, 0, abs(this.layers[x].neurons[y].weights[n] * 256))
+                    let c = abs(this.layers[x].neurons[y].weights[n] * 256);
+                    stroke(c * (1 - this.placement), c * this.placement, 0);
                     line(p1x, p1y, p2x, p2y);
                 } 
             }
@@ -71,7 +73,7 @@ class NeuralNetwork{
 
                 fill(v * 256);
                 //stroke(b * 256, 0, 0);
-                stroke(256);
+                stroke(256); strokeWeight(0.5);
                 circle(0, 0, this.bound.w / 20);
                 pop();
 
@@ -126,9 +128,9 @@ class NeuralNetwork{
         paddle.vel = 0; //defualt no motion
 
         if((input[0] + this.sensitivity) - input[1] < 0){
-            paddle.vel = 1;
+            paddle.vel = 1.5;
         }else if((input[1] + this.sensitivity) - input[0] < 0){
-            paddle.vel = -1;
+            paddle.vel = -1.5;
         }
 
     }

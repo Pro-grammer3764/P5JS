@@ -27,7 +27,7 @@ class NeuralDNA{
     mutateDNA(){
         let newDNA = new NeuralDNA();
 
-        const odds = 0.05; //5% of the DNA will be changed
+        const odds = 0.10; //5% of the DNA will be changed
 
         for(let i = 0; i < this.weightDNA.length; i++){
             if(random() < odds){

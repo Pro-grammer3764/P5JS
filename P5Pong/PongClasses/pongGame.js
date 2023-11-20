@@ -15,6 +15,7 @@ class pongGame{
     this.DNA = new NeuralDNA(this.AI);
     //print(this.DNA);
     
+    this.completedCycle = false;
     this.fitness = 0;
     this.totalAccuracy = 0;
   }
@@ -54,7 +55,7 @@ class pongGame{
   }
 
   update(){
-    if(this.rightScore > 0){return;}
+    if(this.rightScore > 4){this.completedCycle = true; this.left.col = color(256, 0, 0); return;} else{this.left.col = color(256);}
 
     this.ball.update();
     this.ballCollision();
@@ -74,7 +75,7 @@ class pongGame{
   }
 
   ballCollision(){
-    switch (this.ball.checkCollisions(this.left, this.right)) {
+    switch (this.ball.checkCollisions(this.left, this.right, this)) {
       case 'right score':
         this.reset()
         this.rightScore++;
