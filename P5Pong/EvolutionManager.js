@@ -52,6 +52,9 @@ class GamesManager{
                 //replace the bottom half with the new DNA
                 if(i > this.games.length / 2){
                     this.games[i].AI.insertDNA(newParent.mutateDNA());
+                }else{
+                    let sameDNA = new NeuralDNA(this.games[i].AI);
+                    this.games[i].AI.insertDNA(sameDNA.mutateDNA());
                 }
                 
                 this.games[i].AI.placement = map(i, 0, this.games.length, 1, 0);
