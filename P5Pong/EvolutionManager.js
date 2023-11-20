@@ -32,6 +32,8 @@ class GamesManager{
     }
 
     updateGames(){
+        //AI is not learning most likely due to the fact that its not creating a new array of games
+
         this.globalTimer++;
         if(!this.checkGames()){
             for(let i = 0; i < this.games.length; i++){
