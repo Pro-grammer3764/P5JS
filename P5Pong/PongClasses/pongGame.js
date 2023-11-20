@@ -12,6 +12,8 @@ class pongGame{
 
     this.state = new gameState(this);
     this.AI = new NeuralNetwork(this.bound, [5, 4, 3, 2]);
+    this.DNA = new NeuralDNA(this.AI);
+    print(this.DNA);
     this.timer = 0;
     this.totalAccuracy = 0;
     this.fitness = 0;

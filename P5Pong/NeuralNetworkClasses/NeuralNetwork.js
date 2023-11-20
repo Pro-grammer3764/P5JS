@@ -132,4 +132,18 @@ class NeuralNetwork{
         }
 
     }
+
+    insertDNA(DNA){
+        for(let x = 0; x < this.layers.length - 1; x++){
+            for(let y = 0; y < this.layers[x].neurons.length; y++){
+                this.layers[x].neurons[y].bias = DNA.biasDNA.splice(0, 1)[0];
+
+                for(let n = 0; n < this.layers[x].neurons[y].weights.length; n++){
+                    this.layers[x].neurons[y].weights[n] = DNA.weightDNA.splice(0, 1)[0];
+                }
+            }
+        }
+
+        print(this);
+    }
 }

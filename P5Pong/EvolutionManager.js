@@ -3,7 +3,7 @@ class GamesManager{
         this.bound = bound;
         this.games = new Array(count);
         this.globalTimer = 0;
-        this.resetTime = 600; //600 frames ~ 10 seconds
+        this.resetTime = 300; //600 frames ~ 10 seconds
     }
 
     innitializeGames(){
@@ -39,6 +39,11 @@ class GamesManager{
             }
         }else{
             //do evolution thingies
+            for(let i = 0; i < this.games.length; i++){
+                this.games
+            }
+
+            noLoop();
         }
     }
 }
