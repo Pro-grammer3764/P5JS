@@ -3,7 +3,7 @@ class GamesManager{
         this.bound = bound;
         this.games = new Array(count);
         this.globalTimer = 0;
-        this.resetTime = 300; //600 frames ~ 10 seconds
+        this.resetTime = 600; //600 frames ~ 10 seconds
     }
 
     innitializeGames(){
@@ -38,12 +38,27 @@ class GamesManager{
                 this.games[i].update();
             }
         }else{
-            //do evolution thingies
             for(let i = 0; i < this.games.length; i++){
-                this.games
+                this.games[i].setFitness(this.globalTimer); //set fitness of each game
             }
 
-            noLoop();
+            this.sortGames(); //re-order the games based off of fitness
+
+            let newParent = this.games[0].DNA.combine(this.games[1].DNA); //combine top two DNA's
+
+            for(let i = 0; i < this.games.length; i++){
+                this.games[i].AI.insertDNA(newParent.mutateDNA()); //place new DNA into all the neural networks and mutate all the DNA
+                this.games[i].totalAccuracy = 0;
+                this.games[i].rightScore = 0;
+                this.games[i].leftScore = 0;
+                this.games[i].reset();
+            }
+
+            this.globalTimer = 0;
         }
+    }
+
+    sortGames(){
+        this.games.sort((a,b) => b.fitness - a.fitness);
     }
 }

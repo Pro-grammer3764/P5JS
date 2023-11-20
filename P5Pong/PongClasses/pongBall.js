@@ -5,7 +5,7 @@ class ball{
         this.a = min(a * 4, 256);
         this.col = color(256, 256, 256, this.a);
         this.speed = ballSize / 2;
-        this.debug = true;
+        this.debug = false;
         this.normalPos = createVector(0, 0);
         this.normalVel = createVector(0, 0);
         this.reset();
@@ -98,11 +98,9 @@ class ball{
         //left and right wall collision
         if(this.x < this.bound.x + this.radius/2){
             //left wall
-            this.reset();
             return 'right score';
         }else if(this.x > this.bound.x + this.bound.w - this.radius/2){
             //right wall
-            this.reset();
             return 'left score';
         }
         

@@ -13,10 +13,10 @@ class pongGame{
     this.state = new gameState(this);
     this.AI = new NeuralNetwork(this.bound, [5, 4, 3, 2]);
     this.DNA = new NeuralDNA(this.AI);
-    print(this.DNA);
-    this.timer = 0;
-    this.totalAccuracy = 0;
+    //print(this.DNA);
+    
     this.fitness = 0;
+    this.totalAccuracy = 0;
   }
 
   show(){
@@ -27,6 +27,7 @@ class pongGame{
     
     //UI
     push();
+    //Center Line
     strokeWeight(1);
     stroke(256, this.a)
     let num = 12;
@@ -38,18 +39,22 @@ class pongGame{
       this.bound.y + (this.bound.h / num) * (i+1));
     }
     
+    //Score
     fill(256, this.a); noStroke();
     textSize(this.pw * 2);
     textAlign(CENTER, CENTER);
     text(this.leftScore,  this.bound.x + (this.bound.w * 0.25), this.bound.y + (this.bound.h / 10)); //left score text
     text(this.rightScore, this.bound.x + (this.bound.w * 0.75), this.bound.y + (this.bound.h / 10)); //right score text
+
+    //Total Accuracy
+
     pop();
     
     this.AI.showNerualNetwork();
   }
 
   update(){
-    this.timer++;
+    if(this.rightScore > 0){return;}
 
     this.ball.update();
     this.ballCollision();
@@ -60,13 +65,12 @@ class pongGame{
     this.AI.updatePaddle(this.AI.returnOutputs(), this.left); //update paddle
     
     this.totalAccuracy += this.left.accuracy;
-    this.fitness = this.totalAccuracy / this.timer;
 
     this.autoPlay();
   }
 
-  expectedOutput(){
-    //return wether the AI should have an output of 1,0 or 0,1 or 0.5, 0.5
+  setFitness(globalTimer){
+    this.fitness = this.totalAccuracy / globalTimer;
   }
 
   ballCollision(){
@@ -85,10 +89,9 @@ class pongGame{
   }
 
   reset(){
+    this.ball.reset();
     this.left.reset();
     this.right.reset();
-    this.totalAccuracy = 0;
-    this.timer = 0;
   }
 
   autoPlay(){

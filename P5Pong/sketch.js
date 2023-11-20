@@ -8,7 +8,7 @@ function setup() {
   NeuralNetwork.prototype.Sigmoid = Sigmoid();
   pongGame.prototype.Sigmoid = Sigmoid();
 
-  gamesManager = new GamesManager(3, new bound(0, 0, width, height));
+  gamesManager = new GamesManager(9, new bound(0, 0, width, height));
   gamesManager.innitializeGames();
 }
 

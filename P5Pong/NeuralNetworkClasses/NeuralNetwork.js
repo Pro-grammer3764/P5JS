@@ -144,6 +144,6 @@ class NeuralNetwork{
             }
         }
 
-        print(this);
+        //print(this);
     }
 }

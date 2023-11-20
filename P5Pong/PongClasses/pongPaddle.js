@@ -21,7 +21,8 @@ class pongPaddle{
     }
 
     reset(){
-        this.y = (this.bound.y + this.bound.h) / 2;
+        this.y = this.bound.y + (this.bound.h / 2);
+        this.y -= this.h / 2;
     }
 
     update(){
