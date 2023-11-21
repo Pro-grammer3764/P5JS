@@ -55,7 +55,7 @@ class pongGame{
   }
 
   update(){
-    if(this.rightScore > 4){this.completedCycle = true; this.left.col = color(256, 0, 0); return;} else{this.left.col = color(256);}
+    if(this.rightScore > 1){this.completedCycle = true; this.left.col = color(256, 0, 0); return;} else{this.left.col = color(256);}
 
     this.ball.update();
     this.ballCollision();

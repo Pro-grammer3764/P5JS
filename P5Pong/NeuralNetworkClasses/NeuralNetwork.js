@@ -58,15 +58,16 @@ class NeuralNetwork{
                 let b = this.layers[x].neurons[y].bias;
                 let w = "";
 
-                for(let i = 0; i < this.layers[x].neurons[y].weights.length; i++){
-                    w += nf(this.layers[x].neurons[y].weights[i], 1, 4).toString();
-                    w += ", "
-                }
-                
                 push();
                 translate(this.layers[x].neurons[y].x, this.layers[x].neurons[y].y)
-                
+
                 if(this.debug){
+                    for(let i = 0; i < this.layers[x].neurons[y].weights.length; i++){
+                        w += nf(this.layers[x].neurons[y].weights[i], 1, 4).toString();
+                        w += ", "
+                    }
+                
+                
                     noStroke(); fill(256); textSize(5);
                     text("Value: " + nf(v, 1, 4) +"\nBias: " + nf(b, 1, 4) + "\nWeigths: " + w, 0, 20);
                 }

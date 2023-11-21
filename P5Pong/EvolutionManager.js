@@ -41,32 +41,63 @@ class GamesManager{
             }
 
         }else{
-            for(let i = 0; i < this.games.length; i++){
-                this.games[i].setFitness(this.globalTimer); //set fitness of each game
-            }
-            
-            this.sortGames(); //re-order the games based off of fitness
-            print("max: " + this.games[0].totalAccuracy + ", min: " + this.games[this.games.length - 1].totalAccuracy);
+            let nextGen = this.games.toSorted((a,b) => b.totalAccuracy - a.totalAccuracy);
+            this.games = [];
+            let topDNA = nextGen[0].DNA.combine(nextGen[1].DNA);
+            print(topDNA);
+            print("max: " + nextGen[0].totalAccuracy + ", min: " + nextGen[nextGen.length - 1].totalAccuracy); //prints highest and lowest score
+            print(this);
+            print(nextGen);
+            print(nextGen.length);
 
-            let newParent = this.games[0].DNA.combine(this.games[1].DNA); //combine top two DNA's
-            
-            for(let i = 0; i < this.games.length; i++){
-                //replace the bottom half with the new DNA
-                if(i > this.games.length / 2){
-                    this.games[i].AI.insertDNA(newParent.mutateDNA());
+            for(let i = 0; i < nextGen.length; i++){
+                if(i < nextGen.length / 2 || true){
+                    //top 50%
+                    print(nextGen[i].totalAccuracy);
+                    nextGen[i].DNA = nextGen[i].DNA.mutateDNA();
                 }else{
-                    let sameDNA = new NeuralDNA(this.games[i].AI);
-                    this.games[i].AI.insertDNA(sameDNA.mutateDNA());
+                    //bottom 50%
+                    print(nextGen[i].totalAccuracy);
+                    nextGen[i].DNA = topDNA.mutateDNA();
                 }
+
+                nextGen[i].AI.insertDNA(nextGen[i].DNA);
                 
-                this.games[i].AI.placement = map(i, 0, this.games.length, 1, 0);
+                this.games[i] = nextGen[i];
+                this.games[i].AI.placement = map(i, 0, nextGen.length - 1, 1, 0)
                 this.games[i].totalAccuracy = 0;
-                this.games[i].fitness = 0;
                 this.games[i].rightScore = 0;
                 this.games[i].leftScore = 0;
                 this.games[i].completedCycle = false;
                 this.games[i].reset();
             }
+
+            nextGen = [];
+            print(this);
+            print(nextGen);
+
+            //noLoop();
+
+
+
+            // for(let i = 0; i < this.games.length; i++){
+            //     if(i > this.games.length / 2){
+            //         //worst 50% of generation
+            //         this.games[i].AI.insertDNA(topDNA.mutateDNA());
+            //     }else{
+            //         //best 50% of generation
+            //         this.games[i].AI.insertDNA(nextGen[i].DNA) //insert new mutated DNA
+            //         this.games[i].DNA.mutateDNA(); //mutate DNA
+            //     }
+                
+            //     this.games[i].AI.placement = map(i, 0, this.games.length - 1, 1, 0);
+            //     this.games[i].totalAccuracy = 0;
+            //     this.games[i].fitness = 0;
+            //     this.games[i].rightScore = 0;
+            //     this.games[i].leftScore = 0;
+            //     this.games[i].completedCycle = false;
+            //     this.games[i].reset();
+            // }
             
             this.globalTimer = 0;
         }
